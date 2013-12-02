@@ -1,9 +1,10 @@
 package httpserver;
 
 import java.io.BufferedOutputStream;
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.StringTokenizer;
@@ -18,8 +19,8 @@ class HttpRequest
     }
     
     public void process() throws Exception {
-        DataInputStream din = new DataInputStream(ClientConn.getInputStream());
-        
+        BufferedReader din = new BufferedReader(new InputStreamReader(ClientConn.getInputStream()));
+
         OutputStream ot = ClientConn.getOutputStream();
         BufferedOutputStream out = new BufferedOutputStream(ot);
 
