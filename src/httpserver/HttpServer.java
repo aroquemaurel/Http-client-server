@@ -3,7 +3,7 @@ package httpserver;
 import java.io.File;
 import java.net.*;
 
-class HttpServer
+class HttpServer 
 {
     public static void main(String args[]) throws Exception {
         ServerSocket soc = new ServerSocket(5217);
