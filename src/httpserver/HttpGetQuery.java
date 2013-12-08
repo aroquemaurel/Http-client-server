@@ -6,25 +6,26 @@
 
 package httpserver;
 
-import java.io.OutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  *
  * @author aroquemaurel
  */
 public class HttpGetQuery extends HttpQuery {
-    public HttpGetQuery(OutputStream output, String request) {
-        super(output, request);
+    public HttpGetQuery(Socket clientConn, String request) throws IOException {
+        super(clientConn, request);
         
-        if(!_file.exist()) {
-            _file = new File("/404.html");
+        if(!_file.isFile()) {
+            _file = new HttpFile("www-data/404.html", clientConn.getInputStream());
         }
     }
 
     @Override
     protected String getStatusLine() {
         String status;
-        if(!_file.exist()) {
+        if(!_file.isFile()) {
             status = "HTTP/1.0 404 File not found\r\n";
         } else if(!_file.permssions()) {
             status = "HTTP/1.0 403 Forbidden\r\n";

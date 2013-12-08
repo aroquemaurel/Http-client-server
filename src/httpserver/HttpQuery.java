@@ -8,7 +8,7 @@ package httpserver;
 
 import java.io.BufferedOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.net.Socket;
 import java.util.StringTokenizer;
 
 /**
@@ -17,19 +17,21 @@ import java.util.StringTokenizer;
  */
 abstract public class HttpQuery {
     protected String _request;
-    protected File _file;
+    protected HttpFile _file;
     protected StringTokenizer _st; 
     protected String _serverLine;
     protected BufferedOutputStream _out;
-
-    public HttpQuery(OutputStream outputstream, String request) {
+    protected Socket _clientConn;
+    
+    public HttpQuery(Socket clientConn, String request) throws IOException {
         _request = request;
         _st = new StringTokenizer(request);
 
         _st.nextToken(); // Correspond au get ou put, déjà récupéré
-        _file = new File(_st.nextToken());
+        _file = new HttpFile(_st.nextToken(), clientConn.getInputStream());
         _serverLine = "Simple HTTP Server\r\n";
-        _out = new BufferedOutputStream(outputstream);
+        _out = new BufferedOutputStream(clientConn.getOutputStream());
+        _clientConn = clientConn;
     }
     
     public String getContentLengthLine() throws IOException {
@@ -46,6 +48,5 @@ abstract public class HttpQuery {
     
     protected void close() throws IOException {
         _out.close();
-        _file.close();
     }
 }

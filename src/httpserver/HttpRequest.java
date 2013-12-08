@@ -1,7 +1,6 @@
 package httpserver;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.StringTokenizer;
@@ -20,31 +19,26 @@ class HttpRequest {
         String request = "";
         String buff;
         byte[] buffer = new byte[1024];
-        boolean endQuery = false;
         
-        ByteArrayOutputStream s;
-        while(((buff = din.readLine()) != null) && !endQuery) {
+        // On récupère l'entête
+        while(((buff = din.readLine()) != null)) {
             if(buff.equals("")) {
-                endQuery = true;
+                break;
             } else {
                 request += buff + "\r\n";
             }
         }
-        while((_clientConn.getInputStream().read(buffer)) > 0) {
-            
-        }
-            
+       
         StringTokenizer st = new StringTokenizer(request);
         String header = st.nextToken();
 
-        if(header.equals("GET")) {
-            query = new HttpGetQuery(_clientConn.getOutputStream(), request);
+       if(header.equals("GET")) {
+            query = new HttpGetQuery(_clientConn, request);
         } else {
-            query = new HttpPutQuery(_clientConn.getOutputStream(), request);
+            query = new HttpPutQuery(_clientConn, request);
         }
         
         query.process();
-
         query.close();
         _clientConn.close();
     }

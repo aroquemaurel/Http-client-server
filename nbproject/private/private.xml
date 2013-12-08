@@ -11,12 +11,6 @@
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/aroquemaurel/NetBeansProjects/HttpServer/src/httpserver/HttpServer.java</file>
-            <file>file:/home/aroquemaurel/NetBeansProjects/HttpServer/src/httpserver/HttpPutQuery.java</file>
-            <file>file:/home/aroquemaurel/NetBeansProjects/HttpServer/src/httpserver/HttpRequest.java</file>
-            <file>file:/home/aroquemaurel/NetBeansProjects/HttpServer/src/httpserver/HttpGetQuery.java</file>
-            <file>file:/home/aroquemaurel/NetBeansProjects/HttpServer/src/httpserver/File.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

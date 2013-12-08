@@ -6,7 +6,8 @@
 
 package httpserver;
 
-import java.io.OutputStream;
+import java.io.IOException;
+import java.net.Socket;
 
 /**
  *
@@ -14,37 +15,43 @@ import java.io.OutputStream;
  */
 public class HttpPutQuery extends HttpQuery {
     private String _data;
-    public HttpPutQuery(OutputStream output, String request) {
-        super(output, request);
-        String[] split = request.split("\r\n");
-        _data = split[2]; // Dès qu'on trouve \r\n\r\n
-        
+    
+    public HttpPutQuery(Socket clientConn, String request) throws IOException {
+        super(clientConn, request);
     }   
     
     @Override
     protected String getStatusLine() {
-        String status = "";
+        String status = "HTTP/1.1 ";
         
-        // TODO
+        if(!_file.isFileCreated()) {
+            status += "201 Created"; 
+        } else if(!_file.permssions()) {
+            status += "403 forbidden"; 
+        } else {
+            status += "200 OK";
+        }
+        
         return status;
     }
 
     @Override
     protected String getQuery() throws Exception {
-     //   String ret = getStatusLine() + _serverLine + getContentTypeLine() + getContentLengthLine();
-            String ret = "couc";
+        String ret = getStatusLine() + _serverLine + getContentTypeLine() + getContentLengthLine();
         return ret;
     }
 
     @Override
     protected String getContentTypeLine() {
-        return "";//Content-type: text/html\r\n"; // TODO
+        return "truc\r\n";//Content-type: text/html\r\n"; // TODO
     }
 
     @Override
     protected void process() throws Exception {
         super.process();
-        //_file.saveFile(_data.getBytes());
+        _file.saveFile(_clientConn.getInputStream());
+        
+        _out.close();
     }
     
 }
