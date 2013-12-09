@@ -2,7 +2,7 @@ package httpserver;
 
 import java.io.IOException;
 import java.net.Socket;
-
+import javax.activation.MimetypesFileTypeMap;
 /**
  *
  * @author aroquemaurel
@@ -39,7 +39,7 @@ public class HttpHeadQuery extends HttpQuery {
 
     @Override
     protected String getContentTypeLine() {
-        return "Content-type: text/html\r\n"; // TODO
+        return new MimetypesFileTypeMap().getContentType(_file)+"\r\n";
     }
 
     @Override

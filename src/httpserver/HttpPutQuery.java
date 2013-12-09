@@ -9,6 +9,7 @@ package httpserver;
 import java.io.IOException;
 import java.net.Socket;
 import java.util.StringTokenizer;
+import javax.activation.MimetypesFileTypeMap;
 
 /**
  *
@@ -24,7 +25,6 @@ public class HttpPutQuery extends HttpQuery {
         for(int i = 0 ; i < splits.length ; ++i) {
             st = new StringTokenizer(splits[i]);
             header = st.nextToken();
-            System.out.println(header);
             if(header.equals("Contents-length:")) {
                 _contentsSize = Integer.parseInt(st.nextToken());
             }
@@ -54,7 +54,7 @@ public class HttpPutQuery extends HttpQuery {
 
     @Override
     protected String getContentTypeLine() {
-        return "truc\r\n";//Content-type: text/html\r\n"; // TODO
+        return new MimetypesFileTypeMap().getContentType(_file)+"\r\n";
     }
 
     @Override

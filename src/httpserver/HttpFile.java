@@ -57,6 +57,7 @@ public class HttpFile extends File {
                 return;
                 // TODO erreur droits → forbidden
             }
+            
             while ((read = input.read(bytes)) > 0) {
                 output.write(bytes, 0, read);
             }

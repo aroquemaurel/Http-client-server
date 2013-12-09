@@ -15,7 +15,7 @@ class HttpRequest {
     
     public void process() throws Exception {
         BufferedReader din = new BufferedReader(new InputStreamReader(_clientConn.getInputStream()));
-        HttpQuery query;
+        HttpQuery query = null;
         String request = "";
         String buff;
         
@@ -30,11 +30,17 @@ class HttpRequest {
        
         StringTokenizer st = new StringTokenizer(request);
         String header = st.nextToken();
-
-       if(header.equals("GET")) {
-            query = new HttpGetQuery(_clientConn, request);
-        } else {
-            query = new HttpPutQuery(_clientConn, request);
+        
+        switch (header) {
+            case "GET":
+                query = new HttpGetQuery(_clientConn, request);
+                break;
+            case "PUT":
+                query = new HttpPutQuery(_clientConn, request);
+                break;
+            case "HEAD":
+                query = new HttpHeadQuery(_clientConn, request);
+                break;
         }
         
         query.process();
