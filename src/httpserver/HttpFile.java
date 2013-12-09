@@ -52,12 +52,9 @@ public class HttpFile extends File {
             return;
              // TODO erreur droits → forbidden
         }
-                System.out.println("kamoulox");
-
         while ((read = input.read(bytes)) > 0) {
             output.write(bytes, 0, read);
         }
-        System.out.println("coucou");
         output.flush();
         output.close();
         input.close();

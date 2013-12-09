@@ -22,7 +22,7 @@ abstract public class HttpQuery {
     protected String _serverLine;
     protected BufferedOutputStream _out;
     protected Socket _clientConn;
-    
+    protected int _contentsSize;
     public HttpQuery(Socket clientConn, String request) throws IOException {
         _request = request;
         _st = new StringTokenizer(request);

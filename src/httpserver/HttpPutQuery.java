@@ -8,16 +8,27 @@ package httpserver;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.util.StringTokenizer;
 
 /**
  *
  * @author aroquemaurel
  */
 public class HttpPutQuery extends HttpQuery {
-    private String _data;
-    
     public HttpPutQuery(Socket clientConn, String request) throws IOException {
         super(clientConn, request);
+        String[] splits = request.split("\n");
+        StringTokenizer st;
+        String header;
+        
+        for(int i = 0 ; i < splits.length ; ++i) {
+            st = new StringTokenizer(splits[i]);
+            header = st.nextToken();
+            System.out.println(header);
+            if(header.equals("Contents-length:")) {
+                _contentsSize = Integer.parseInt(st.nextToken());
+            }
+        }
     }   
     
     @Override
