@@ -12,15 +12,19 @@ import java.io.InputStream;
  * @author aroquemaurel
  */
 public class HttpFile extends File {
-    private InputStream _inputStream;
-    private FileOutputStream _outputStream;
+    private final InputStream _inputStream;
     private boolean _fileCreated;
+    private int _size;
+    public HttpFile(String path, InputStream input, final int size) {
+        super("www-data/"+path);
+        _inputStream = input;
+    }
     
     public HttpFile(String path, InputStream input) {
         super("www-data/"+path);
         _inputStream = input;
     }
-    
+
     public void sendFile(BufferedOutputStream out) throws IOException {
         byte[] buffer = new byte[1024] ;
         int bytes;

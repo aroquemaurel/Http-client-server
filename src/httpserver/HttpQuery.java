@@ -23,12 +23,16 @@ abstract public class HttpQuery {
     protected BufferedOutputStream _out;
     protected Socket _clientConn;
     protected int _contentsSize;
+
+    public int getContentsSize() {
+        return _contentsSize;
+    }
     public HttpQuery(Socket clientConn, String request) throws IOException {
         _request = request;
         _st = new StringTokenizer(request);
-
+        
         _st.nextToken(); // Correspond au get ou put, déjà récupéré
-        _file = new HttpFile(_st.nextToken(), clientConn.getInputStream());
+        _file = new HttpFile(_st.nextToken(), clientConn.getInputStream(), _contentsSize);
         _serverLine = "Simple HTTP Server\r\n";
         _out = new BufferedOutputStream(clientConn.getOutputStream());
         _clientConn = clientConn;

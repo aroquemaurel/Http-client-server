@@ -18,7 +18,6 @@ class HttpRequest {
         HttpQuery query = null;
         String request = "";
         String buff;
-        byte[] buffer = new byte[1024];
         
         // On récupère l'entête
         while(((buff = din.readLine()) != null)) {
