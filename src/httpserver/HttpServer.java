@@ -11,9 +11,7 @@ class HttpServer
         f.mkdir(); // Si www-data n'existe pas, on le créé !
         
         while(true) {
-            Socket inSoc = soc.accept();
-            HttpRequest request = new HttpRequest(inSoc);
-            request.process();
+            new HttpServerThread(soc.accept()); // On lance un nouveau thread
         }
     }
 }

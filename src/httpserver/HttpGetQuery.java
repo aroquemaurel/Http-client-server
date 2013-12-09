@@ -13,7 +13,7 @@ import java.net.Socket;
  *
  * @author aroquemaurel
  */
-public class HttpGetQuery extends HttpHead {
+public class HttpGetQuery extends HttpHeadQuery {
     public HttpGetQuery(Socket clientConn, String request) throws IOException {
         super(clientConn, request);
     }

@@ -15,7 +15,7 @@ class HttpRequest {
     
     public void process() throws Exception {
         BufferedReader din = new BufferedReader(new InputStreamReader(_clientConn.getInputStream()));
-        HttpQuery query = null;
+        HttpQuery query;
         String request = "";
         String buff;
         
